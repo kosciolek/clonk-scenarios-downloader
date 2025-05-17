@@ -32,26 +32,28 @@ const processRemainingPages = async () => {
     const rows = await page.$$("table tbody tr:not(:first-child)");
 
     for (const [index, row] of rows.entries()) {
-      const rowTextContent = (await row.evaluate((el) => el.textContent))!;
-      if (
-        // skip pagination rows
-        rowTextContent.includes("Zeige Einträge") ||
-        rowTextContent.includes("Spalte hinzufügen")
-      ) {
-        continue;
-      }
-
       const thisScenarioId = `${nextPage}-${index}`;
-      if (
-        doneScenarios.includes(thisScenarioId) ||
-        errorScenarios.includes(thisScenarioId)
-      ) {
-        console.log(
-          `Skipping ${thisScenarioId} because it was already processed`
-        );
-        continue;
-      }
       try {
+        const rowTextContent = (await row.evaluate((el) => el.textContent))!;
+        if (
+          // skip pagination rows
+          rowTextContent.includes("Zeige Einträge") ||
+          rowTextContent.includes("Spalte hinzufügen")
+        ) {
+          continue;
+        }
+
+
+        if (
+          doneScenarios.includes(thisScenarioId) ||
+          errorScenarios.includes(thisScenarioId)
+        ) {
+          console.log(
+            `Skipping ${thisScenarioId} because it was already processed`
+          );
+          continue;
+        }
+
         const name = await row.$eval("td:nth-child(2)", (el) => el.textContent);
         const link = await row.$("td:nth-child(3) a");
         const href = await link!.evaluate((el) => el.href);
