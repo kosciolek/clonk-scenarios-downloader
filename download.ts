@@ -55,7 +55,7 @@ const processRemainingPages = async () => {
         const name = await row.$eval("td:nth-child(2)", (el) => el.textContent);
         const link = await row.$("td:nth-child(3) a");
         const href = await link!.evaluate((el) => el.href);
-        const ACCEPTABLE_LINK_REGEX = /\.c4d$|\.zip$/;
+        const ACCEPTABLE_LINK_REGEX = /\.c4.?$|\.zip$/;
         if (ACCEPTABLE_LINK_REGEX.test(href)) {
           console.log(`Downloading ${name} (row ${index}, 0 indexed)`);
           await link!.click();
