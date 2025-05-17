@@ -8,7 +8,7 @@ const errorScenarios: string[] = [];
 const EXPECTED_PAGES = 150;
 let nextPage = 0;
 
-const startFromPage = async () => {
+const processRemainingPages = async () => {
   const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: {
@@ -78,5 +78,5 @@ const startFromPage = async () => {
 };
 
 while (nextPage < EXPECTED_PAGES) {
-  await startFromPage();
+  await processRemainingPages();
 }
