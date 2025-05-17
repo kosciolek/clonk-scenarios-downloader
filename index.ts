@@ -38,12 +38,12 @@ for (let p = 0; p < EXPECTED_PAGES; p++) {
       for (const link of links) {
         const linkData = await link.evaluate(el => ({
             href: el.href,
-            textContent: el.textContent
+            innerText: el.innerText
         }));
         
         if (ACCEPTABLE_LINK_REGEX.test(linkData.href)) {
           await link.click();
-          console.log(`Downloading ${linkData.textContent}`);
+          console.log(`Downloading ${linkData.innerText}`);
           await new Promise((r) => setTimeout(r, 1000));
         }
       }
