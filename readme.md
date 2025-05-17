@@ -1,7 +1,13 @@
 Downloads all Clonk Rage scenarios from https://ccan.de/cgi-bin/ccan/ccan-view.pl
 
-To start:
+Download:
 
 ```
-npm i && npm run start
+npm run download
+```
+
+Some scenarios are zipped, unzip them with:
+
+```
+npm run unzip
 ```

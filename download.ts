@@ -1,7 +1,6 @@
 import puppeteer from 'puppeteer';
-import { mkdir } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
-import path from 'node:path';
+import { DOWNLOAD_PATH } from './shared.js';
+
 const browser = await puppeteer.launch({
     headless: false,
     defaultViewport: {
@@ -11,11 +10,6 @@ const browser = await puppeteer.launch({
 });
 
 
-const DOWNLOAD_PATH = path.resolve(import.meta.dirname, 'clonk-downloads');
-
-if (!existsSync(DOWNLOAD_PATH)) {
-    await mkdir(DOWNLOAD_PATH);
-}
 
 
 const page = await browser.newPage();
@@ -47,10 +41,6 @@ for (let p = 0; p < EXPECTED_PAGES; p++) {
           await new Promise((r) => setTimeout(r, 1000));
         }
       }
-      
 }
-
-
-
-
 await browser.close();
+
