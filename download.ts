@@ -69,6 +69,8 @@ const processRemainingPages = async () => {
         console.error(e);
         errorScenarios.push(thisScenarioId);
         // if an error occurs, restart the browser, and loop while skipping done/error rows
+        // wait till remaining downloads complete
+        await new Promise((r) => setTimeout(r, 10000));
         await browser.close();
         return;
       }
