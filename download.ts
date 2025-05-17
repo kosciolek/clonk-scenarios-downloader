@@ -57,7 +57,7 @@ const processRemainingPages = async () => {
         const href = await link!.evaluate((el) => el.href);
         const ACCEPTABLE_LINK_REGEX = /\.c4d$|\.zip$/;
         if (ACCEPTABLE_LINK_REGEX.test(href)) {
-          console.log(`Downloading ${name} (row ${index + 1})`);
+          console.log(`Downloading ${name} (row ${index}, 0 indexed)`);
           await link!.click();
           doneScenarios.push(thisScenarioId);
           await new Promise((r) => setTimeout(r, 1000));
